@@ -21,12 +21,13 @@ export const SearchedSentences: React.FC<Props> = ({ search, categoryId, isFavor
   });
 
   const shouldRender = useMemo(() => search.trim().length > 0, [search]);
+  const categoryName = useMemo(() => categoryId ? sentences[0]?.category?.name ?? '' : '', [sentences, categoryId]);
 
   if (!shouldRender) return null;
 
   return (
     <div className="space-y-3">
-      <SubHeader title={`${total} frases encontradas para "${search}"`} muted hideSwitch />
+      <SubHeader title={`${total} frases encontradas para "${search}" ${categoryName ? `em "${categoryName}"` : ''}`} muted hideSwitch />
 
       {isLoading ? (
         <div className="text-sm text-muted-foreground">Carregando…</div>
