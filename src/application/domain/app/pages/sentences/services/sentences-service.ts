@@ -32,6 +32,8 @@ export class SentencesService extends ApiService {
     return {
       data: data.data.sentences,
       total: data.data.totalSentences,
+      categoryName: data.data.categoryName,
+      categoryId: data.data.categoryId,
     }
   }
 

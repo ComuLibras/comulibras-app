@@ -34,7 +34,12 @@ export const CategoriesPage: React.FC = () => {
                 categoryId={category.id}
                 color={category.color}
                 icon={category.icon}
-                onClick={() => navigate(`/app/sentences/category/${category.id}`)}
+                onClick={() => navigate(`/app/sentences/category/${category.id}`, {
+                  state: {
+                    categoryName: category.name,
+                    categoryId: category.id,
+                  },
+                })}
                 title={category.name}
                 subtitle={`${category.sentenceCount} frases disponíveis`}
                 isFavorite={category.isFavorite}

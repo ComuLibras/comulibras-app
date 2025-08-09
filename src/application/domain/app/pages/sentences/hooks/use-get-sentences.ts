@@ -15,5 +15,5 @@ export function useGetSentences({ categoryId, isFavorite }: Props) {
     enabled: !!categoryId,
   });
 
-  return { sentences: data?.data ?? [], total: data?.total ?? 0, isLoading };
+  return { sentences: data?.data ?? [], total: data?.total ?? 0, isLoading, categoryName: data?.categoryName, categoryId: data?.categoryId ?? null };
 } 

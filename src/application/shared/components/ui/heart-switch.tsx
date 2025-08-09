@@ -12,7 +12,7 @@ function HeartSwitch({
     <SwitchPrimitive.Root
       data-slot="switch"
       className={cn(
-        "peer group data-[state=checked]:bg-red-500 data-[state=unchecked]:bg-input focus-visible:border-ring focus-visible:ring-ring/50 dark:data-[state=unchecked]:bg-input/80 inline-flex h-6 w-11 shrink-0 items-center rounded-full border border-transparent shadow-xs transition-all outline-none focus-visible:ring-[3px] disabled:cursor-not-allowed disabled:opacity-50",
+        "peer group data-[state=checked]:bg-red-500 data-[state=unchecked]:bg-input focus-visible:border-ring focus-visible:ring-ring/50  inline-flex h-6 w-11 shrink-0 items-center rounded-full border border-transparent shadow-xs transition-all outline-none focus-visible:ring-[3px] disabled:cursor-not-allowed disabled:opacity-50",
         className
       )}
       {...props}
@@ -20,7 +20,7 @@ function HeartSwitch({
       <SwitchPrimitive.Thumb
         data-slot="switch-thumb"
         className={cn(
-          "dark:data-[state=unchecked]:bg-foreground dark:data-[state=checked]:bg-primary-foreground pointer-events-none grid place-items-center size-5 rounded-full ring-0 transition-transform data-[state=checked]:translate-x-[calc(100%)] data-[state=unchecked]:translate-x-0"
+          "pointer-events-none grid place-items-center size-5 rounded-full ring-0 transition-transform data-[state=checked]:translate-x-[calc(100%)] data-[state=unchecked]:translate-x-0"
         )}
       >
         <Icon

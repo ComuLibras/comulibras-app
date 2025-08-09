@@ -1,28 +1,25 @@
 
-import { useNavigate, useParams } from "react-router";
+import { useLocation, useNavigate, useParams } from "react-router";
 import { ListTile } from "../../../components/list-tile";
 import { useGetSentences } from "../hooks/use-get-sentences";
 import { Header } from "../../../components/header";
 import { SubHeader } from "../../../components/sub-header";
-import { useMemo, useState } from "react";
+import { useState } from "react";
 import { SearchedSentences } from "../../../components/searched-sentences";
 
 export const SentencesPage: React.FC = () => {
   const { categoryId } = useParams();
+  const { state } = useLocation();
   const [isFavorite, setIsFavorite] = useState<boolean | undefined>(undefined);
-  const { sentences } = useGetSentences({ categoryId: categoryId ?? '', isFavorite });
+  const { sentences, categoryName } = useGetSentences({ categoryId: categoryId ?? '', isFavorite });
   const [search, setSearch] = useState<string>("");
 
   const navigate = useNavigate();
 
-  const categoryName = useMemo(() => {
-    return sentences[0]?.category?.name ?? 'Frases';
-  }, [sentences]);
-
   return (
     <div className="p-4 space-y-4">
       <Header
-        title={categoryName}
+        title={state?.categoryName ?? categoryName}
         placeholder="Pesquisar frases..."
         shouldGoBack
         search={search}

@@ -12,7 +12,10 @@ export type Sentence = {
   isFavorite?: boolean | undefined;
   category?: Category;
 }
+
 export type GetSentencesResponse = {
+  categoryId: string | null;
+  categoryName: string;
   sentences: Sentence[];
   totalSentences: number;
 };
