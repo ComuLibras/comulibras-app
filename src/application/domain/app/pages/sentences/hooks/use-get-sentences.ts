@@ -10,7 +10,7 @@ export function useGetSentences({ categoryId }: Props) {
 
   const { data, isLoading } = useQuery({
     queryKey: ["sentences"],
-    queryFn: () => sentencesService.getSentences(categoryId),
+    queryFn: () => sentencesService.getSentences({ categoryId }),
     enabled: !!categoryId,
   });
 

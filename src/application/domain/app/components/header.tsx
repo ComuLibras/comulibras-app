@@ -10,9 +10,11 @@ type Props = {
   shouldGoBack?: boolean;
   placeholder?: string;
   hideSearch?: boolean;
+  search?: string;
+  onSearchChange?: (value: string) => void;
 }
 
-export const Header: React.FC<Props> = ({ title, shouldGoBack = false, placeholder = 'Pesquisar', hideSearch = false }) => {
+export const Header: React.FC<Props> = ({ title, shouldGoBack = false, placeholder = 'Pesquisar', hideSearch = false, search, onSearchChange }) => {
   const navigate = useNavigate();
 
   const handleGoBack = () => {
@@ -36,6 +38,8 @@ export const Header: React.FC<Props> = ({ title, shouldGoBack = false, placehold
           placeholder={placeholder}
           className="h-12"
           leftIcon={<Icon name="search" />}        
+          value={search ?? ""}
+          onChange={(e) => onSearchChange?.(e.target.value)}
         />
       )}
     </header>

@@ -1,17 +1,18 @@
-import type { Category } from "@/application/domain/dashboard/categories/services/dto/categories-dto";
+import type { Category } from "@/application/domain/app/pages/categories/services/dto/categories-dto";
 import { Button } from "@/application/shared/components/ui/button";
 import { Icon } from "@/application/shared/components/ui/icon";
 import { cn } from "@/application/shared/lib/utils";
+import { emptyCategory } from "@/application/shared/utils/empty-category";
 
 type Props = {
-  category: Category;
+  category?: Category;
   size?: "sm" | "md" | "lg";
   onClick?: () => void;
   title: string;
   subtitle: string;
 }
 
-export function ListTile({ category, size = "sm", onClick, title, subtitle }: Props) {
+export function ListTile({ category = emptyCategory, size = "sm", onClick, title, subtitle }: Props) {
   const sizes = {
     sm: {
       div: "size-6",

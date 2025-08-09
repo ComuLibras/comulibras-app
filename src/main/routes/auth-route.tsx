@@ -7,7 +7,7 @@ export function AuthRoute() {
   const { accessToken } = authService.getToken();
 
   if (accessToken) {
-    return <Navigate to="/dashboard" replace />;
+    return <Navigate to="/app/categories" replace />;
   }
 
   return <Outlet />;

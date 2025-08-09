@@ -5,6 +5,11 @@ import type {
   UpdateSentenceFavoriteResponse
 } from "./dto/sentences-dto";
 
+type SearchSentencesParams = {
+  categoryId?: string;
+  search?: string;
+}
+
 export class SentencesService extends ApiService {
   private readonly baseUrl: string
 
@@ -14,10 +19,11 @@ export class SentencesService extends ApiService {
     this.baseUrl = '/sentences'
   }
 
-  async getSentences(categoryId: string) {
+  async getSentences(params: SearchSentencesParams) {
     const data = await this.httpClient.get<GetSentencesResponse>(this.baseUrl, {
       params: {
-        categoryId,
+        categoryId: params.categoryId,
+        search: params.search,
       }
     });
 

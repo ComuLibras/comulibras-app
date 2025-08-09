@@ -15,7 +15,7 @@ export function useSignIn() {
       const { accessToken, role } = response.data;
       authService.setToken({ accessToken, role });
 
-      const entryRoute = '/dashboard';
+      const entryRoute = '/app/categories';
 
       navigate(entryRoute);
       toast.success('Login realizado com sucesso');
