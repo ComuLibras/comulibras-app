@@ -1,23 +1,34 @@
-import type { Category } from "@/application/domain/app/pages/categories/services/dto/categories-dto";
 import { Button } from "@/application/shared/components/ui/button";
-import { Icon } from "@/application/shared/components/ui/icon";
+import { Icon, type IconProps } from "@/application/shared/components/ui/icon";
 import { cn } from "@/application/shared/lib/utils";
-import { emptyCategory } from "@/application/shared/utils/empty-category";
 import { useUpdateSentenceFavorite } from "../pages/sentences/hooks/use-update-sentence-favorite";
 import { useUpdateCategoryFavorite } from "../pages/categories/hooks/use-update-category-favorite";
 import { ProtectedComponent } from "./protected-component";
+import { Colors } from "./colors-map";
 
 type Props = {
-  category?: Category;
   size?: "sm" | "md" | "lg";
   onClick?: () => void;
   title: string;
   subtitle: string;
   sentenceId?: string;
   isFavorite?: boolean;
+  color?: string;
+  icon?: IconProps["name"];
+  categoryId?: string;
 }
 
-export function ListTile({ category = emptyCategory, size = "sm", onClick, title, subtitle, sentenceId, isFavorite }: Props) {
+export function ListTile({ 
+  size = "sm", 
+  onClick, 
+  title, 
+  subtitle, 
+  sentenceId, 
+  isFavorite, 
+  color, 
+  icon,
+  categoryId
+}: Props) {
   const sizes = {
     sm: {
       div: "size-6",
@@ -43,8 +54,8 @@ export function ListTile({ category = emptyCategory, size = "sm", onClick, title
 
     if (sentenceId) {
       void updateSentenceFavorite({ dto: { isFavorite: !isFavorite }, sentenceId });
-    } else if (category?.id) {
-      void updateCategoryFavorite({ dto: { isFavorite: !isFavorite }, categoryId: category.id });
+    } else if (categoryId) {
+      void updateCategoryFavorite({ dto: { isFavorite: !isFavorite }, categoryId });
     }
   };
 
@@ -52,9 +63,9 @@ export function ListTile({ category = emptyCategory, size = "sm", onClick, title
     <div className="flex items-center gap-2 w-full border border-solid border-border rounded-lg p-4" onClick={onClick}>
       <div 
         className={cn("flex items-center justify-center rounded size-6", sizes[size].div)}
-        style={{ backgroundColor: `${category.color}2a` }}
+        style={{ backgroundColor: `${color}2a` }}
       >
-        <Icon name={category.icon} className={cn("text-white", sizes[size].icon)} color={category.color} />
+        <Icon name={icon ?? 'home'} className={cn("text-white", sizes[size].icon)} color={color ?? Colors.Azul} />
       </div>
       <div className="flex flex-col flex-1">
         <strong>{title}</strong>

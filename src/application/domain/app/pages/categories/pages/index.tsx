@@ -31,7 +31,9 @@ export const CategoriesPage: React.FC = () => {
               <ListTile 
                 key={category.id}
                 size="lg"
-                category={category}  
+                categoryId={category.id}
+                color={category.color}
+                icon={category.icon}
                 onClick={() => navigate(`/app/sentences/category/${category.id}`)}
                 title={category.name}
                 subtitle={`${category.sentenceCount} frases disponíveis`}

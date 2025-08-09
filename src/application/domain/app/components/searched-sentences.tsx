@@ -39,7 +39,9 @@ export const SearchedSentences: React.FC<Props> = ({ search, categoryId, isFavor
             <ListTile
               key={sentence.id}
               size="lg"
-              category={sentence.category}
+              categoryId={sentence.category?.id}
+              color={sentence.category?.color}
+              icon={sentence.category?.icon}
               title={sentence.content}
               subtitle="Toque para ver o vídeo"
               sentenceId={sentence.id}

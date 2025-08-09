@@ -44,7 +44,9 @@ export const SentencesPage: React.FC = () => {
                 <ListTile
                   key={sentence.id}
                   size="lg"
-                  category={sentence.category}
+                  categoryId={sentence.category?.id}
+                  color={sentence.category?.color}
+                  icon={sentence.category?.icon}
                   title={sentence.content}
                   subtitle="Toque para ver o vídeo"
                   sentenceId={sentence.id}
