@@ -5,7 +5,6 @@ import { PasswordInput } from "@/application/shared/components/ui/password-input
 import { FormContainer, FormSubtitle, FormWrapper } from '../../components/form';
 import { useSignInController } from "./sign-in-controller";
 import { Icon } from "@/application/shared/components/ui/icon";
-import { Link } from "react-router";
 import { Button } from "@/application/shared/components/ui/button";
 import { Separator } from "@/application/shared/components/ui/separator";
 
@@ -64,9 +63,9 @@ export const SignInPage: React.FC = () => {
                     className="h-12"
                   />
                 </FormControl>
-                <div className="flex justify-end">
+                {/* <div className="flex justify-end">
                   <Link className="text-right text-xs underline underline-offset-2" to="/auth/forgot-password">Esqueceu sua senha?</Link>
-                </div>
+                </div> */}
                 <FormMessage />
               </FormItem>
             )}

@@ -38,20 +38,26 @@ export const SentencesPage: React.FC = () => {
             checked={Boolean(isFavorite)}
             onCheckedChange={(checked) => setIsFavorite(checked ? true : undefined)}
           />
-          <div className="flex flex-col gap-2">
-            {sentences.map((sentence) => (
-              <ListTile
-                key={sentence.id}
-                size="lg"
-                category={sentence.category}
-                title={sentence.content}
-                subtitle="Toque para ver o vídeo"
-                sentenceId={sentence.id}
-                isFavorite={sentence.isFavorite}
-                onClick={() => navigate(`/app/sentences/sentence/${sentence.id}`)}
-              />
-            ))}
-          </div>
+          {sentences.length > 0 ? (
+            <div className="flex flex-col gap-2">
+              {sentences.map((sentence) => (
+                <ListTile
+                  key={sentence.id}
+                  size="lg"
+                  category={sentence.category}
+                  title={sentence.content}
+                  subtitle="Toque para ver o vídeo"
+                  sentenceId={sentence.id}
+                  isFavorite={sentence.isFavorite}
+                  onClick={() => navigate(`/app/sentences/sentence/${sentence.id}`)}
+                />
+              ))}
+            </div>
+          ) : (
+            <div className="text-sm text-muted-foreground">Nenhuma frase encontrada nessa categoria.</div>
+          )}
+
+          
         </>
       )}
     </div>

@@ -45,6 +45,7 @@ export const SignUpPage: React.FC = () => {
                 <FormControl>
                   <Input 
                     {...field} 
+                    autoComplete="off"
                     placeholder="example@gmail.com" 
                     leftIcon={<Icon name="mail" />} 
                     className="h-12"
@@ -65,6 +66,7 @@ export const SignUpPage: React.FC = () => {
                 <FormControl>
                   <PasswordInput 
                     {...field} 
+                    autoComplete="new-password"
                     placeholder="******" 
                     className="h-12"
                   />
@@ -83,6 +85,7 @@ export const SignUpPage: React.FC = () => {
                 <FormControl>
                   <PasswordInput 
                     {...field} 
+                    autoComplete="new-password"
                     placeholder="******" 
                     className="h-12"
                   />
