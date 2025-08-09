@@ -8,14 +8,16 @@ import type { Sentence } from "../pages/sentences/services/dto/sentences-dto";
 type Props = {
   search: string;
   categoryId?: string;
+  isFavorite?: boolean;
 };
 
-export const SearchedSentences: React.FC<Props> = ({ search, categoryId }) => {
+export const SearchedSentences: React.FC<Props> = ({ search, categoryId, isFavorite }) => {
   const navigate = useNavigate();
 
   const { sentences, total, isLoading } = useGetSentencesBySearch({
     search,
     categoryId,
+    isFavorite,
   });
 
   const shouldRender = useMemo(() => search.trim().length > 0, [search]);
@@ -24,7 +26,7 @@ export const SearchedSentences: React.FC<Props> = ({ search, categoryId }) => {
 
   return (
     <div className="space-y-3">
-      <SubHeader title={`${total} frases encontradas para "${search}"`} muted />
+      <SubHeader title={`${total} frases encontradas para "${search}"`} muted hideSwitch />
 
       {isLoading ? (
         <div className="text-sm text-muted-foreground">Carregando…</div>
@@ -39,6 +41,8 @@ export const SearchedSentences: React.FC<Props> = ({ search, categoryId }) => {
               category={sentence.category}
               title={sentence.content}
               subtitle="Toque para ver o vídeo"
+              sentenceId={sentence.id}
+              isFavorite={sentence.isFavorite}
               onClick={() => navigate(`/app/sentences/sentence/${sentence.id}`)}
             />
           ))}

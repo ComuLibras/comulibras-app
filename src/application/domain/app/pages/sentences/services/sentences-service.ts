@@ -8,6 +8,7 @@ import type {
 type SearchSentencesParams = {
   categoryId?: string;
   search?: string;
+  isFavorite?: boolean;
 }
 
 export class SentencesService extends ApiService {
@@ -24,6 +25,7 @@ export class SentencesService extends ApiService {
       params: {
         categoryId: params.categoryId,
         search: params.search,
+        isFavorite: params.isFavorite,
       }
     });
 

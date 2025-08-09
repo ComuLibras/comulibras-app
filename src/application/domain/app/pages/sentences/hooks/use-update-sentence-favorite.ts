@@ -14,12 +14,13 @@ export function useUpdateSentenceFavorite() {
 
   const { mutateAsync: updateSentenceFavorite, ...rest } = useMutation({
     mutationFn: ({ dto, sentenceId }: Props) => sentencesService.updateSentenceFavorite(dto, sentenceId),
-    onSuccess: () => {
+    onSuccess: ({ data }) => {
       queryClient.invalidateQueries({ queryKey: ["sentences"] });
-      toast.success("Frase favoritada com sucesso!");
+      queryClient.invalidateQueries({ queryKey: ["sentence", data.id] });
+      toast.success(`Frase ${data.isFavorite ? "favoritada" : "removida dos favoritos"} com sucesso!`);
     },
-    onError: () => {
-      toast.error("Erro ao favoritar frase");
+    onError: (_, variables) => {
+      toast.error(`Erro ao ${variables.dto.isFavorite ? "favoritar" : "remover dos favoritos"} frase`);
     },
   });
 

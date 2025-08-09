@@ -1,5 +1,6 @@
-import { Roles } from '@/application/domain/dashboard/accounts/services/dto/account-dto';
+
 import z from 'zod';
+export type Roles = 'ADMIN' | 'USER';
 
 export const signInDTO = z.object({
   email: z.string().email({ message: 'E-mail inválido' }).min(1),

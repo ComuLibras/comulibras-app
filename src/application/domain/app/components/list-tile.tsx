@@ -3,6 +3,10 @@ import { Button } from "@/application/shared/components/ui/button";
 import { Icon } from "@/application/shared/components/ui/icon";
 import { cn } from "@/application/shared/lib/utils";
 import { emptyCategory } from "@/application/shared/utils/empty-category";
+import { useMemo } from "react";
+import { useUpdateSentenceFavorite } from "../pages/sentences/hooks/use-update-sentence-favorite";
+import { useUpdateCategoryFavorite } from "../pages/categories/hooks/use-update-category-favorite";
+import { AuthService } from "../../auth/services/auth-service";
 
 type Props = {
   category?: Category;
@@ -10,9 +14,11 @@ type Props = {
   onClick?: () => void;
   title: string;
   subtitle: string;
+  sentenceId?: string;
+  isFavorite?: boolean;
 }
 
-export function ListTile({ category = emptyCategory, size = "sm", onClick, title, subtitle }: Props) {
+export function ListTile({ category = emptyCategory, size = "sm", onClick, title, subtitle, sentenceId, isFavorite }: Props) {
   const sizes = {
     sm: {
       div: "size-6",
@@ -28,6 +34,32 @@ export function ListTile({ category = emptyCategory, size = "sm", onClick, title
     },
   }
 
+  const { updateSentenceFavorite } = useUpdateSentenceFavorite();
+  const { updateCategoryFavorite } = useUpdateCategoryFavorite();
+
+  const canFavorite = useMemo(() => {
+    try {
+      const service = new AuthService();
+      const { accessToken } = service.getToken();
+      return Boolean(accessToken);
+    } catch {
+      return false;
+    }
+  }, []);
+
+  const heartColor = isFavorite ? "text-red-500" : undefined;
+
+  const handleToggleFavorite = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    if (!canFavorite) return;
+
+    if (sentenceId) {
+      void updateSentenceFavorite({ dto: { isFavorite: !isFavorite }, sentenceId });
+    } else if (category?.id) {
+      void updateCategoryFavorite({ dto: { isFavorite: !isFavorite }, categoryId: category.id });
+    }
+  };
+
   return (
     <div className="flex items-center gap-2 w-full border border-solid border-border rounded-lg p-4" onClick={onClick}>
       <div 
@@ -42,9 +74,11 @@ export function ListTile({ category = emptyCategory, size = "sm", onClick, title
       </div>
 
       <div className="flex justify-end items-center">
-        <Button variant="ghost" size="icon">
-          <Icon name="heart" className="size-6" />
-        </Button>
+        {canFavorite && (
+          <Button variant="ghost" size="icon" onClick={handleToggleFavorite} aria-label={isFavorite ? "Desfavoritar" : "Favoritar"}>
+            <Icon name="heart" fill={isFavorite ? "currentColor" : "none"} className={cn("size-6", heartColor)} />
+          </Button>
+        )}
         <Icon name="chevron-right" className="size-6" />
       </div>
     </div>

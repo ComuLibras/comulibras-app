@@ -9,7 +9,8 @@ import { SearchedSentences } from "../../../components/searched-sentences";
 
 export const SentencesPage: React.FC = () => {
   const { categoryId } = useParams();
-  const { sentences } = useGetSentences({ categoryId: categoryId ?? '' });
+  const [isFavorite, setIsFavorite] = useState<boolean | undefined>(undefined);
+  const { sentences } = useGetSentences({ categoryId: categoryId ?? '', isFavorite });
   const [search, setSearch] = useState<string>("");
 
   const navigate = useNavigate();
@@ -28,11 +29,15 @@ export const SentencesPage: React.FC = () => {
         onSearchChange={setSearch}
       />
 
-      <SearchedSentences search={search} categoryId={categoryId} />
+      <SearchedSentences search={search} categoryId={categoryId} isFavorite={isFavorite} />
 
       {search.trim().length === 0 && (
         <>
-          <SubHeader title="Frases disponíveis" />
+          <SubHeader
+            title="Frases disponíveis"
+            checked={Boolean(isFavorite)}
+            onCheckedChange={(checked) => setIsFavorite(checked ? true : undefined)}
+          />
           <div className="flex flex-col gap-2">
             {sentences.map((sentence) => (
               <ListTile
@@ -41,6 +46,8 @@ export const SentencesPage: React.FC = () => {
                 category={sentence.category}
                 title={sentence.content}
                 subtitle="Toque para ver o vídeo"
+                sentenceId={sentence.id}
+                isFavorite={sentence.isFavorite}
                 onClick={() => navigate(`/app/sentences/sentence/${sentence.id}`)}
               />
             ))}

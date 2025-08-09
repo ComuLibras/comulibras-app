@@ -3,14 +3,15 @@ import { makeSentencesService } from "../services/make-sentences-service";
 
 interface Props {
   categoryId: string;
+  isFavorite?: boolean;
 }
 
-export function useGetSentences({ categoryId }: Props) {
+export function useGetSentences({ categoryId, isFavorite }: Props) {
   const sentencesService = makeSentencesService();
 
   const { data, isLoading } = useQuery({
-    queryKey: ["sentences"],
-    queryFn: () => sentencesService.getSentences({ categoryId }),
+    queryKey: ["sentences", { categoryId, isFavorite }],
+    queryFn: () => sentencesService.getSentences({ categoryId, isFavorite }),
     enabled: !!categoryId,
   });
 

@@ -9,6 +9,9 @@ import { Icon } from "@/application/shared/components/ui/icon";
 import { Drawer, DrawerContent, DrawerFooter, DrawerHeader, DrawerTitle, DrawerTrigger } from "@/application/shared/components/ui/drawer";
 import { useParams } from "react-router";
 import { useGetSentenceById } from "../../hooks/use-get-sentence-by-id";
+import { cn } from "@/application/shared/lib/utils";
+import { useUpdateSentenceFavorite } from "../../hooks/use-update-sentence-favorite";
+import { queryClient } from "@/application/shared/clients/query-client";
 
 const REGEX_YOUTUBE_VIDEO_ID = /(?:youtu\.be\/|youtube\.com(?:\/embed\/|\/v\/|.*v=))([A-Za-z0-9_-]{11})/;
 
@@ -20,11 +23,13 @@ export const SentencePage: React.FC = () => {
 
   const { sentence } = useGetSentenceById({ sentenceId: sentenceId ?? '' });
 
+  const { updateSentenceFavorite } = useUpdateSentenceFavorite();
+
   useEffect(() => {
     if (playerRef.current) {
       new Plyr(playerRef.current, {
         autoplay: true,
-        muted: false,
+        muted: true,
         controls: [
           'play-large',
           'play',
@@ -41,6 +46,12 @@ export const SentencePage: React.FC = () => {
 
   const handleModalClose = () => {
     setIsModalOpen(false);
+  };
+
+  const handleToggleFavorite = async () => {
+    await updateSentenceFavorite({ dto: { isFavorite: !sentence?.isFavorite }, sentenceId: sentenceId ?? '' });
+    queryClient.invalidateQueries({ queryKey: ["sentences"] });
+    queryClient.invalidateQueries({ queryKey: ["sentence", sentenceId] });
   };
 
   const [, videoId] = sentence?.videoUrl.match(REGEX_YOUTUBE_VIDEO_ID) ?? [null, null];
@@ -66,8 +77,8 @@ export const SentencePage: React.FC = () => {
           <p className="text-sm text-gray-500">Categoria: {sentence?.category?.name}</p>
         </div>
 
-        <Button variant="ghost" size="icon" className="rounded-full">
-          <Icon name="heart" className="size-6" />
+        <Button variant="ghost" size="icon" className="rounded-full" onClick={handleToggleFavorite}>
+          <Icon name="heart" className={cn("size-6", sentence?.isFavorite ? "text-red-500" : "transparent")} fill={sentence?.isFavorite ? "currentColor" : "none"} />
         </Button>
       </div>
 

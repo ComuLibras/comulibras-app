@@ -11,8 +11,12 @@ export class CategoriesService extends ApiService {
     this.baseUrl = '/categories'
   }
 
-  async getCategories() {
-    return this.httpClient.get<GetCategoriesResponse>(this.baseUrl);
+  async getCategories(params?: { isFavorite?: boolean }) {
+    return this.httpClient.get<GetCategoriesResponse>(this.baseUrl, {
+      params: {
+        isFavorite: params?.isFavorite,
+      }
+    });
   }
 
   async updateCategoryFavorite(dto: UpdateCategoryFavoriteBody, categoryId: string) {

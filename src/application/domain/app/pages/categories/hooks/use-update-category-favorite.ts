@@ -15,12 +15,12 @@ export function useUpdateCategoryFavorite() {
 
   const { mutateAsync: updateCategoryFavorite, ...rest } = useMutation({
     mutationFn: ({ dto, categoryId }: Props) => categoriesService.updateCategoryFavorite(dto, categoryId),
-    onSuccess: () => {
+    onSuccess: ({ data }) => {
       queryClient.invalidateQueries({ queryKey: ["categories"] });
-      toast.success("Categoria atualizada com sucesso!");
+      toast.success(`Categoria ${data.isFavorite ? "favoritada" : "removida dos favoritos"} com sucesso!`);
     },
-    onError: () => {
-      toast.error("Erro ao atualizar categoria");
+    onError: (_, variables) => {
+      toast.error(`Erro ao ${variables.dto.isFavorite ? "favoritar" : "remover dos favoritos"} categoria`);
     },
   });
 

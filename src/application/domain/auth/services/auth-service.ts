@@ -1,11 +1,10 @@
 import { ApiService } from "@/application/shared/services/api-service";
-import { type SignInDTO, type SignInResponse, type SignUpDTO, type SignUpResponse } from "./dto/auth-dto";
-import type { Roles } from "../../dashboard/accounts/services/dto/account-dto";
+import { type Roles, type SignInDTO, type SignInResponse, type SignUpDTO, type SignUpResponse } from "./dto/auth-dto";
 
 export class AuthService extends ApiService {
   constructor(
-    private readonly accessTokenKey: string = '@comulibras-dashboard:access-token',
-    private readonly roleKey: string = '@comulibras-dashboard:role',
+    private readonly accessTokenKey: string = '@comulibras-app:access-token',
+    private readonly roleKey: string = '@comulibras-app:role',
     private readonly baseUrl: string = '/auth',
   ) {
     super();
