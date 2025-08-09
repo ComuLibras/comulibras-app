@@ -9,6 +9,7 @@ import { useUpdateSentenceFavorite } from "../../hooks/use-update-sentence-favor
 import { queryClient } from "@/application/shared/clients/query-client";
 import { VideoPlayer } from "@/application/domain/app/components/video-player";
 import { TryItModal } from "@/application/domain/app/components/try-it-modal";
+import { ProtectedComponent } from "@/application/domain/app/components/protected-component";
 
 export const SentencePage: React.FC = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -39,9 +40,11 @@ export const SentencePage: React.FC = () => {
           <p className="text-sm text-gray-500">Categoria: {sentence?.category?.name}</p>
         </div>
 
-        <Button variant="ghost" size="icon" className="rounded-full" onClick={handleToggleFavorite}>
-          <Icon name="heart" className={cn("size-6", sentence?.isFavorite ? "text-red-500" : "transparent")} fill={sentence?.isFavorite ? "currentColor" : "none"} />
-        </Button>
+        <ProtectedComponent>
+          <Button variant="ghost" size="icon" className="rounded-full" onClick={handleToggleFavorite}>
+            <Icon name="heart" className={cn("size-6", sentence?.isFavorite ? "text-red-500" : "transparent")} fill={sentence?.isFavorite ? "currentColor" : "none"} />
+          </Button>
+        </ProtectedComponent>
       </div>
 
       <footer className="flex flex-col space-y-4 p-4">

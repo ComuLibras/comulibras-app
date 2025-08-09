@@ -4,6 +4,7 @@ import { Button } from "@/application/shared/components/ui/button";
 import { Icon } from "@/application/shared/components/ui/icon";
 import { Input } from "@/application/shared/components/ui/input";
 import { useNavigate } from "react-router";
+import { DrawerMenu } from "./drawer-menu";
 
 type Props = {
   title?: string;
@@ -27,7 +28,11 @@ export const Header: React.FC<Props> = ({ title, shouldGoBack = false, placehold
     <header className="flex flex-col space-y-4">
       <div className="flex items-center justify-between">
         <Button variant="ghost" size="icon" onClick={handleGoBack}>
-          <Icon className="size-6" name={shouldGoBack ? 'chevron-left' : 'menu'} />
+          {shouldGoBack ? (
+            <Icon className="size-6" name="chevron-left" />
+          ) : (
+            <DrawerMenu />
+          )}
         </Button>
         <h1 className="text-2xl font-bold">{title || 'ComuLibras'}</h1>
         <div className="size-9" />

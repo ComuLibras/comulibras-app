@@ -30,7 +30,6 @@ export function ThemeProvider({
     }
 
     root.classList.add(theme)
-    setTheme('light')
   }, [systemTheme, theme])
 
   const value = {

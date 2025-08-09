@@ -3,10 +3,9 @@ import { Button } from "@/application/shared/components/ui/button";
 import { Icon } from "@/application/shared/components/ui/icon";
 import { cn } from "@/application/shared/lib/utils";
 import { emptyCategory } from "@/application/shared/utils/empty-category";
-import { useMemo } from "react";
 import { useUpdateSentenceFavorite } from "../pages/sentences/hooks/use-update-sentence-favorite";
 import { useUpdateCategoryFavorite } from "../pages/categories/hooks/use-update-category-favorite";
-import { AuthService } from "../../auth/services/auth-service";
+import { ProtectedComponent } from "./protected-component";
 
 type Props = {
   category?: Category;
@@ -37,21 +36,10 @@ export function ListTile({ category = emptyCategory, size = "sm", onClick, title
   const { updateSentenceFavorite } = useUpdateSentenceFavorite();
   const { updateCategoryFavorite } = useUpdateCategoryFavorite();
 
-  const canFavorite = useMemo(() => {
-    try {
-      const service = new AuthService();
-      const { accessToken } = service.getToken();
-      return Boolean(accessToken);
-    } catch {
-      return false;
-    }
-  }, []);
-
   const heartColor = isFavorite ? "text-red-500" : undefined;
 
   const handleToggleFavorite = (e: React.MouseEvent) => {
     e.stopPropagation();
-    if (!canFavorite) return;
 
     if (sentenceId) {
       void updateSentenceFavorite({ dto: { isFavorite: !isFavorite }, sentenceId });
@@ -74,11 +62,11 @@ export function ListTile({ category = emptyCategory, size = "sm", onClick, title
       </div>
 
       <div className="flex justify-end items-center">
-        {canFavorite && (
+        <ProtectedComponent>
           <Button variant="ghost" size="icon" onClick={handleToggleFavorite} aria-label={isFavorite ? "Desfavoritar" : "Favoritar"}>
             <Icon name="heart" fill={isFavorite ? "currentColor" : "none"} className={cn("size-6", heartColor)} />
           </Button>
-        )}
+        </ProtectedComponent>
         <Icon name="chevron-right" className="size-6" />
       </div>
     </div>

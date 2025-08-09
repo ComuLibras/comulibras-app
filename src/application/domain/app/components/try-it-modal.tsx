@@ -23,7 +23,7 @@ export const TryItModal: React.FC<TryItModalProps> = ({
 }) => {
   return (
     <Drawer open={open} onOpenChange={onOpenChange} modal>
-      <DrawerContent className="max-w-lg mx-auto">
+      <DrawerContent className="max-w-lg mx-auto" >
         <DrawerHeader>
           <DrawerTitle>{title}</DrawerTitle>
         </DrawerHeader>

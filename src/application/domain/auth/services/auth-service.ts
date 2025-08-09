@@ -22,8 +22,12 @@ export class AuthService extends ApiService {
     localStorage.removeItem(this.accessTokenKey);
 
     if (props?.shallRedirect && window.location.pathname !== '/auth/sign-in') {
-      window.location.href = '/auth/sign-in';
+      window.location.href = '/';
     }
+  }
+
+  isLoggedIn() {
+    return !!localStorage.getItem(this.accessTokenKey);
   }
 
   setToken({ accessToken, role }: SignInResponse) {
