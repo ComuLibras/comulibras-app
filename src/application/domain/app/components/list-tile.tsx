@@ -65,7 +65,7 @@ export function ListTile({
         className={cn("flex items-center justify-center rounded size-6", sizes[size].div)}
         style={{ backgroundColor: `${color}2a` }}
       >
-        <Icon name={icon ?? 'home'} className={cn("text-white", sizes[size].icon)} color={color ?? Colors.Azul} />
+        <Icon name={icon ?? 'badge-question-mark'} className={cn("text-white", sizes[size].icon)} color={color ?? Colors.Azul} />
       </div>
       <div className="flex flex-col flex-1">
         <strong>{title}</strong>
