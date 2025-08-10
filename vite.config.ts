@@ -3,6 +3,7 @@ import tailwindcss from "@tailwindcss/vite";
 import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react-swc';
 import { VitePWA } from 'vite-plugin-pwa';
+import icons from './public/icons.json';
 
 // https://vite.dev/config/
 export default defineConfig({
@@ -27,20 +28,7 @@ export default defineConfig({
         orientation: 'portrait',
         scope: '/',
         start_url: '/',
-        icons: [
-          {
-            src: 'vite.svg',
-            sizes: 'any',
-            type: 'image/svg+xml',
-            purpose: 'any'
-          },
-          {
-            src: 'vite.svg', 
-            sizes: 'any',
-            type: 'image/svg+xml',
-            purpose: 'maskable'
-          }
-        ],
+        icons: icons.icons,
         categories: ['education', 'accessibility'],
         lang: 'pt-BR',
         dir: 'ltr'
