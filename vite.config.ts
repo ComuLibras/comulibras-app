@@ -17,7 +17,7 @@ export default defineConfig({
         cleanupOutdatedCaches: true,
         skipWaiting: true,
       },
-      includeAssets: ['vite.svg', 'logo.png', 'logo-light.png'],
+      includeAssets: ['logo.png', 'logo-light.png'],
       manifest: {
         name: 'ComuLibras',
         short_name: 'ComuLibras',
