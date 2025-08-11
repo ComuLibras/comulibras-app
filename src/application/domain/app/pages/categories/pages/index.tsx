@@ -6,12 +6,13 @@ import { Header } from "../../../components/header";
 import { SubHeader } from "../../../components/sub-header";
 import { useState } from "react";
 import { SearchedSentences } from "../../../components/searched-sentences";
+import ListTileLoading from "../../../components/list-tile-loading";
 
 export const CategoriesPage: React.FC = () => {
   const navigate = useNavigate();
 
   const [isFavorite, setIsFavorite] = useState<boolean | undefined>(undefined);
-  const { categories } = useGetCategories({ isFavorite });
+  const { categories, isLoading } = useGetCategories({ isFavorite });
   const [search, setSearch] = useState<string>("");
 
   return (
@@ -26,6 +27,7 @@ export const CategoriesPage: React.FC = () => {
             checked={Boolean(isFavorite)}
             onCheckedChange={(checked) => setIsFavorite(checked ? true : undefined)}
           />
+          {isLoading && <ListTileLoading length={10} />}
           <div className="flex flex-col gap-2">
             {categories.map((category) => (
               <ListTile 

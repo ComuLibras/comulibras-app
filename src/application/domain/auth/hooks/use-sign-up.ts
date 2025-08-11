@@ -17,8 +17,12 @@ export function useSignUp() {
 
       const entryRoute = '/app/categories';
 
-      navigate(entryRoute);
-      toast.success('Conta criada com sucesso');
+      if (accessToken) {
+        navigate(entryRoute);
+        toast.success('Conta criada com sucesso');
+      } else {
+        throw new Error('Erro ao criar conta');
+      }
     },
     onError: () => toast.error('Erro ao criar conta')
   });

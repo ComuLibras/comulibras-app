@@ -4,7 +4,7 @@ import { type SubmitHandler, useForm } from "react-hook-form";
 import { useSignUp } from "../../hooks/use-sign-up";
 
 export function useSignUpController() {
-  const { signUp } = useSignUp();
+  const { signUp, isLoading } = useSignUp();
   const form = useForm<SignUpDTO>({
     defaultValues: {
       name: '',
@@ -25,6 +25,7 @@ export function useSignUpController() {
     form,
     handleSubmit,
     isValid,
-    isSubmitted
+    isSubmitted,
+    isLoading
   }
 }

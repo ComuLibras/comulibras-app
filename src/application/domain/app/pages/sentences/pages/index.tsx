@@ -6,12 +6,13 @@ import { Header } from "../../../components/header";
 import { SubHeader } from "../../../components/sub-header";
 import { useState } from "react";
 import { SearchedSentences } from "../../../components/searched-sentences";
+import ListTileLoading from "../../../components/list-tile-loading";
 
 export const SentencesPage: React.FC = () => {
   const { categoryId } = useParams();
   const { state } = useLocation();
   const [isFavorite, setIsFavorite] = useState<boolean | undefined>(undefined);
-  const { sentences, categoryName } = useGetSentences({ categoryId: categoryId ?? '', isFavorite });
+  const { sentences, categoryName, isLoading } = useGetSentences({ categoryId: categoryId ?? '', isFavorite });
   const [search, setSearch] = useState<string>("");
 
   const navigate = useNavigate();
@@ -35,6 +36,7 @@ export const SentencesPage: React.FC = () => {
             checked={Boolean(isFavorite)}
             onCheckedChange={(checked) => setIsFavorite(checked ? true : undefined)}
           />
+          {isLoading && <ListTileLoading length={10} />}
           {sentences.length > 0 ? (
             <div className="flex flex-col gap-2">
               {sentences.map((sentence) => (

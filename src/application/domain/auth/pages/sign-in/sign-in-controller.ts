@@ -4,7 +4,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { type SubmitHandler, useForm } from "react-hook-form";
 
 export function useSignInController() {
-  const { signIn } = useSignIn();
+  const { signIn, isLoading } = useSignIn();
   const form = useForm<SignInDTO>({
     defaultValues: {
       email: '',
@@ -23,6 +23,7 @@ export function useSignInController() {
     form,
     handleSubmit,
     isValid,
-    isSubmitted
+    isSubmitted,
+    isLoading
   }
 }

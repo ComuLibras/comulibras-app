@@ -6,10 +6,11 @@ import { FormContainer, FormSubtitle, FormWrapper } from '../../components/form'
 import { useSignUpController } from "./sign-up-controller";
 import { Icon } from "@/application/shared/components/ui/icon";
 import { Button } from "@/application/shared/components/ui/button";
+import ModifiedClassicLoader from "@/components/mvpblocks/modified-classic-loader";
 
 
 export const SignUpPage: React.FC = () => {
-  const { form, handleSubmit, isSubmitted, isValid } = useSignUpController();
+  const { form, handleSubmit, isSubmitted, isValid, isLoading } = useSignUpController();
 
   return (
     <FormContainer>
@@ -96,8 +97,9 @@ export const SignUpPage: React.FC = () => {
           />
 
           <div className="flex flex-col gap-2 mt-6 justify-center items-center">
-            <Button type="submit" disabled={!isValid && isSubmitted} className="w-full" size="lg">
+            <Button type="submit" disabled={!isValid && isSubmitted || isLoading} className="w-full" size="lg">
               Criar conta
+              {isLoading && <ModifiedClassicLoader />}
             </Button>
 
             <FormSubtitle

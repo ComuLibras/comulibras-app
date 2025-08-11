@@ -4,6 +4,7 @@ import { SubHeader } from "./sub-header";
 import { ListTile } from "./list-tile";
 import { useGetSentencesBySearch } from "../hooks/use-get-sentences-by-search";
 import type { Sentence } from "../pages/sentences/services/dto/sentences-dto";
+import ListTileLoading from "./list-tile-loading";
 
 type Props = {
   search: string;
@@ -30,7 +31,7 @@ export const SearchedSentences: React.FC<Props> = ({ search, categoryId, isFavor
       <SubHeader title={`${total} frases encontradas para "${search}" ${categoryName ? `em "${categoryName}"` : ''}`} muted hideSwitch />
 
       {isLoading ? (
-        <div className="text-sm text-muted-foreground">Carregando…</div>
+        <ListTileLoading length={10} />
       ) : sentences.length === 0 ? (
         <div className="text-sm text-muted-foreground">Nenhuma frase encontrada.</div>
       ) : (
