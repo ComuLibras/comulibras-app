@@ -12,10 +12,16 @@ type Props = {
 export function useGetSentencesBySearch({ search, categoryId, isFavorite, debounceMs = 400 }: Props) {
   const sentencesService = makeSentencesService();
 
+  const [isTyping, setIsTyping] = useState<boolean>(false);
+
   const [debouncedSearch, setDebouncedSearch] = useState<string>(search);
 
   useEffect(() => {
-    const handle = setTimeout(() => setDebouncedSearch(search), debounceMs);
+    setIsTyping(true);
+    const handle = setTimeout(() => {
+      setDebouncedSearch(search);
+      setIsTyping(false);
+    }, debounceMs);
     return () => clearTimeout(handle);
   }, [search, debounceMs]);
 
@@ -27,5 +33,5 @@ export function useGetSentencesBySearch({ search, categoryId, isFavorite, deboun
     enabled,
   });
 
-  return { sentences: data?.data ?? [], total: data?.total ?? 0, isLoading: isLoading || isFetching };
+  return { sentences: data?.data ?? [], total: data?.total ?? 0, isLoading: isLoading || isFetching || isTyping };
 }

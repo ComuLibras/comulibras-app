@@ -45,7 +45,7 @@ export const SentencesPage: React.FC = () => {
                   size="lg"
                   categoryId={sentence.category?.id}
                   color={sentence.category?.color}
-                  icon={sentence.category?.icon}
+                  icon='video'
                   title={sentence.content}
                   subtitle="Toque para ver o vídeo"
                   sentenceId={sentence.id}

@@ -9,7 +9,7 @@ import { Button } from "@/application/shared/components/ui/button";
 import { Separator } from "@/application/shared/components/ui/separator";
 
 import Google from '@/application/assets/google.svg';
-import ModifiedClassicLoader from "@/components/mvpblocks/modified-classic-loader";
+import { LoadingButton } from "@/application/shared/components/ui/loading-button";
 
 export const SignInPage: React.FC = () => {
   const { form, handleSubmit, isSubmitted, isValid, isLoading } = useSignInController();
@@ -73,10 +73,9 @@ export const SignInPage: React.FC = () => {
           />
 
           <div className="flex flex-col gap-6 mt-6 justify-center items-center">
-            <Button type="submit" disabled={!isValid && isSubmitted || isLoading} className="w-full" size="lg">
+            <LoadingButton isLoading={isLoading} className="w-full" size="lg">
               Entrar
-              {isLoading && <ModifiedClassicLoader />}
-            </Button>
+            </LoadingButton>
 
             <FormSubtitle
               text="Não tem uma conta?"

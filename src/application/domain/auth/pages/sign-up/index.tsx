@@ -5,8 +5,7 @@ import { PasswordInput } from "@/application/shared/components/ui/password-input
 import { FormContainer, FormSubtitle, FormWrapper } from '../../components/form';
 import { useSignUpController } from "./sign-up-controller";
 import { Icon } from "@/application/shared/components/ui/icon";
-import { Button } from "@/application/shared/components/ui/button";
-import ModifiedClassicLoader from "@/components/mvpblocks/modified-classic-loader";
+import { LoadingButton } from "@/application/shared/components/ui/loading-button";
 
 
 export const SignUpPage: React.FC = () => {
@@ -97,10 +96,9 @@ export const SignUpPage: React.FC = () => {
           />
 
           <div className="flex flex-col gap-2 mt-6 justify-center items-center">
-            <Button type="submit" disabled={!isValid && isSubmitted || isLoading} className="w-full" size="lg">
+            <LoadingButton type="submit" isLoading={isLoading} disabled={!isValid && isSubmitted || isLoading} className="w-full" size="lg">
               Criar conta
-              {isLoading && <ModifiedClassicLoader />}
-            </Button>
+            </LoadingButton>
 
             <FormSubtitle
               text="Já tem uma conta?"

@@ -30,11 +30,9 @@ export const SearchedSentences: React.FC<Props> = ({ search, categoryId, isFavor
     <div className="space-y-3">
       <SubHeader title={`${total} frases encontradas para "${search}" ${categoryName ? `em "${categoryName}"` : ''}`} muted hideSwitch />
 
-      {isLoading ? (
-        <ListTileLoading length={10} />
-      ) : sentences.length === 0 ? (
-        <div className="text-sm text-muted-foreground">Nenhuma frase encontrada.</div>
-      ) : (
+      {isLoading && <ListTileLoading length={10} />}
+
+      {sentences.length > 0 && (
         <div className="flex flex-col gap-2">
           {sentences.map((sentence: Sentence) => (
             <ListTile
@@ -42,7 +40,7 @@ export const SearchedSentences: React.FC<Props> = ({ search, categoryId, isFavor
               size="lg"
               categoryId={sentence.category?.id}
               color={sentence.category?.color}
-              icon={sentence.category?.icon}
+              icon='video'
               title={sentence.content}
               subtitle="Toque para ver o vídeo"
               sentenceId={sentence.id}
@@ -51,6 +49,10 @@ export const SearchedSentences: React.FC<Props> = ({ search, categoryId, isFavor
             />
           ))}
         </div>
+      )}
+
+      {sentences.length === 0 && (
+        <div className="text-sm text-muted-foreground">Nenhuma frase encontrada.</div>
       )}
     </div>
   );
