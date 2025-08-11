@@ -37,13 +37,12 @@ export const VideoPlayer: React.FC<VideoPlayerProps> = ({
   useEffect(() => {
     if (!containerRef.current || !videoId) return;
 
-    // Destroy any previous instance before creating a new one
     playerInstanceRef.current?.destroy();
 
     playerInstanceRef.current = new Plyr(containerRef.current, {
       autoplay,
       muted,
-      controls: ["play-large", "play", "fullscreen"],
+      controls: ["play-large", "play"],
       youtube: {
         noCookie: true,
         modestbranding: "1",
