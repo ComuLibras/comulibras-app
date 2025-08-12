@@ -69,7 +69,7 @@ export const SentencePage: React.FC = () => {
         <TryItModal
           open={isModalOpen}
           onOpenChange={setIsModalOpen}
-          title="Bom dia, como posso ajudar?"
+          title={sentence?.content}
           videoUrl={sentence?.videoUrl}
         />
 
