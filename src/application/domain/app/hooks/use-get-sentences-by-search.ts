@@ -27,11 +27,22 @@ export function useGetSentencesBySearch({ search, categoryId, isFavorite, deboun
 
   const enabled = useMemo(() => debouncedSearch.trim().length > 0, [debouncedSearch]);
 
-  const { data, isLoading, isFetching } = useQuery({
+  const { data, isLoading, isFetching, refetch } = useQuery({
     queryKey: ["sentences", "search", { search: debouncedSearch, categoryId: categoryId ?? null, isFavorite }],
     queryFn: () => sentencesService.getSentences({ categoryId, search: debouncedSearch, isFavorite }),
     enabled,
   });
 
-  return { sentences: data?.data ?? [], total: data?.total ?? 0, isLoading: isLoading || isFetching || isTyping };
+  const handleRefresh = async () => {
+    if (enabled) {
+      await refetch();
+    }
+  };
+
+  return { 
+    sentences: data?.data ?? [], 
+    total: data?.total ?? 0, 
+    isLoading: isLoading || isFetching || isTyping,
+    refresh: handleRefresh
+  };
 }

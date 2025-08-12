@@ -9,11 +9,22 @@ interface Props {
 export function useGetSentences({ categoryId, isFavorite }: Props) {
   const sentencesService = makeSentencesService();
 
-  const { data, isLoading } = useQuery({
+  const { data, isLoading, refetch } = useQuery({
     queryKey: ["sentences", { categoryId, isFavorite }],
     queryFn: () => sentencesService.getSentences({ categoryId, isFavorite }),
     enabled: !!categoryId,
   });
 
-  return { sentences: data?.data ?? [], total: data?.total ?? 0, isLoading, categoryName: data?.categoryName, categoryId: data?.categoryId ?? null };
+  const handleRefresh = async () => {
+    await refetch();
+  };
+
+  return { 
+    sentences: data?.data ?? [], 
+    total: data?.total ?? 0, 
+    isLoading, 
+    categoryName: data?.categoryName, 
+    categoryId: data?.categoryId ?? null,
+    refresh: handleRefresh
+  };
 } 
