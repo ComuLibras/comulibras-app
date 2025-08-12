@@ -13,7 +13,7 @@ type VideoPlayerProps = {
   className?: string;
 };
 
-const REGEX_YOUTUBE_VIDEO_ID = /(?:youtu\.be\/|youtube\.com(?:\/embed\/|\/v\/|.*v=))([A-Za-z0-9_-]{11})/;
+const REGEX_YOUTUBE_VIDEO_ID = /(?:youtu\.be\/|youtube\.com(?:\/embed\/|\/v\/|\/shorts\/|.*v=))([A-Za-z0-9_-]{11})/;
 
 function extractYouTubeIdFromUrl(url?: string | null): string | null {
   if (!url) return null;
